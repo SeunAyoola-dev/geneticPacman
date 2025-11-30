@@ -2,6 +2,7 @@ import pygame
 from pygame.locals import * 
 from constants import * 
 from pacman import Pacman
+from nodes import NodeGroup
 
 class GameController(object): 
     def __init__(self):
@@ -16,7 +17,9 @@ class GameController(object):
         
     def startGame(self):
         self.setBackground()
-        self.pacman = Pacman()
+        self.nodes = NodeGroup()
+        self.nodes.setupTestNodes()
+        self.pacman = Pacman(self.nodes.nodeList[0])
         
     def update(self):
         dt = self.clock.tick(30) / 1000.0
@@ -32,6 +35,7 @@ class GameController(object):
     
     def render(self):
         self.screen.blit(self.background, (0,0))
+        self.nodes.render(self.screen)
         self.pacman.render(self.screen)
         pygame.display.update()
 
