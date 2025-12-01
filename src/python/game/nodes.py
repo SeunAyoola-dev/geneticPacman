@@ -20,8 +20,8 @@ class NodeGroup(object):
     def __init__(self, level):
         self.level = level
         self.nodesTable = {}
-        self.nodeSymbols = ['+']
-        self.pathSymbols = ['.']
+        self.nodeSymbols = ['+', 'P', 'n']
+        self.pathSymbols = ['.', '-', '|', 'p']
         data = self.readMazeFile(level)
         self.createNodeTable(data)
         self.connectHorironztalNodes(data)
@@ -89,3 +89,10 @@ class NodeGroup(object):
     def getStartPoint(self):
         nodes = list(self.nodesTable.values())
         return nodes[0]
+    
+    def setPortalPair(self, pair1, pair2):
+        key1 = self.constructNodePosition(*pair1)
+        key2 = self.constructNodePosition(*pair2)
+        if key1 in self.nodesTable.keys() and key2 in self.nodesTable.keys():
+            self.nodesTable[key1].neighbors[PORTAL] = self.nodesTable[key2]
+            self.nodesTable[key2].neighbors[PORTAL] = self.nodesTable[key1]

@@ -2,6 +2,7 @@ import pygame
 from pygame.locals import *
 from vectors import Vector2
 from constants import *
+import math
 
 class Pacman(object): 
     def __init__(self, node):
@@ -13,6 +14,7 @@ class Pacman(object):
         self.color = YELLOW
         self.node = node
         self.target = node
+        self.collideRadius = self.radius / 2
         self.setPosition()
                 
     def setPosition(self):
@@ -24,6 +26,8 @@ class Pacman(object):
         
         if self.overshotTarget(): 
             self.node = self.target
+            if self.node.neighbors[PORTAL] is not None: 
+                self.node = self.node.neighbors[PORTAL]
             self.target = self.getNewTarget(direction)
             
             if self.target is not self.node: 
@@ -89,5 +93,15 @@ class Pacman(object):
             if direction == self.direction * -1: 
                 return True
         return False
+    
+    def eatPellet(self, pelletList):
+        for pellet in pelletList: 
+            d = self.position - pellet.position
+            d = d.length()
+            r = math.sqrt(pellet.radius**2 + self.collideRadius**2)
+            if d < r: 
+                return pellet 
+        return None
+            
     
     
