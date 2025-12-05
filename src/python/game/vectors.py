@@ -43,3 +43,6 @@ class Vector2(object):
     
     def asInt(self):
         return int(self.x), int(self.y)
+    
+    def magnitudeSquared(self):
+        return self.x**2 + self.y**2

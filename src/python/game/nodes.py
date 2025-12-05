@@ -26,6 +26,7 @@ class NodeGroup(object):
         self.createNodeTable(data)
         self.connectHorironztalNodes(data)
         self.connectVerticalNodes(data)
+        self.homekey = None 
         
     def render(self, screen):
         for node in self.nodesTable.values():
@@ -96,3 +97,20 @@ class NodeGroup(object):
         if key1 in self.nodesTable.keys() and key2 in self.nodesTable.keys():
             self.nodesTable[key1].neighbors[PORTAL] = self.nodesTable[key2]
             self.nodesTable[key2].neighbors[PORTAL] = self.nodesTable[key1]
+            
+    def createHomeNodes(self, xoffset, yoffset):
+        homedata = np.array([['X','X','+','X','X'],
+                             ['X','X','.','X','X'],
+                             ['+','X','.','X','+'],
+                             ['+','.','+','.','+'],
+                             ['+','X','X','X','+']])
+        self.createNodeTable(homedata, xoffset, yoffset)
+        self.connectHorironztalNodes(homedata, xoffset, yoffset)
+        self.connectVerticalNodes(homedata, xoffset, yoffset)
+        self.homekey = self.constructNodePosition(xoffset+2, yoffset)
+        return self.homekey
+    
+    def connectHomeNodes(self, homekey, otherkey, direction): 
+        key = self.constructNodePosition(*otherkey)
+        self.nodesTable[homekey].neighbors[direction] = self.nodesTable[key]
+        self.nodesTable[key].neighbors[direction * -1] = self.nodesTable[homekey]
