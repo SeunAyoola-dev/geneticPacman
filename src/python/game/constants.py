@@ -15,6 +15,10 @@ BLACK = (0, 0, 0)
 YELLOW = (255, 255, 0)
 WHITE = (255, 255, 255)
 RED = (255, 0, 0)
+PINK = (255, 184, 255)
+CYAN = (0, 255, 255)
+ORANGE = (255, 184, 82)
+GREEN = (0, 255, 0)
 
 STOP = 0
 UP = 1
@@ -29,3 +33,8 @@ CHASE = 1
 FREIGHT = 2
 SPAWN = 3
 
+BLINKY = 4
+PINKY = 5
+INKY = 6
+CLYDE = 7
+FRUIT = 8

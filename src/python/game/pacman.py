@@ -10,6 +10,7 @@ class Pacman(Entity):
         super().__init__(node)
         self.name = 'Genetic Pacman'
         self.color = YELLOW
+        self.direction = LEFT
                 
     
     def update(self, dt): 

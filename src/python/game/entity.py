@@ -9,18 +9,22 @@ class Entity(object):
         self.name = None
         self.directions = {STOP:Vector2(0,0), UP:Vector2(0,-1), DOWN:Vector2(0,1), LEFT:Vector2(-1,0), RIGHT:Vector2(1,0)}
         self.direction = STOP
-        self.node = node
         self.setSpeed(100)
         self.radius = 10
         self.collideRadius = self.radius / 2
         self.color = WHITE
-        self.setPosition()
-        self.target = node 
         self.visible = True
         self.disablePortal = False 
         self.goal = None 
         self.directionMethod = self.goalDirection
+        self.setStartNode(node)
     
+    def setStartNode(self, node):
+        self.node = node
+        self.target = node
+        self.startNode = node 
+        self.setPosition()
+        
     def setSpeed(self, speed):
         self.speed = speed * TITLEWIDTH/16 # speed relative to the size of the maze
     
